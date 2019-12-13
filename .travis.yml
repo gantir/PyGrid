@@ -32,8 +32,21 @@ script:
   - cd docs
   - make html
   # - if grep -q "Traceback (most recent call last):" nb_to_md.txt; then false; else true; fi
+services:
+  - docker
+sudo: required
+after_success:
+  - if [ "$TRAVIS_BRANCH" == "417" ]; then
+    docker login -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD";
+    docker build -t ramjee/pysyft-grid-gateway ./gateway/ ;
+    docker images ramjee/pysyft-grid-gateway ;
+    docker push ramjee/pysyft-grid-gateway ;
+    fi
+  # docker build -t ramjee/pysyft-grid-gateway ./gateway/ ;
+  # docker images ramjee/pysyft-grid-gateway ;
+  # docker push ramjee/pysyft-grid-gateway ;
+
 notifications:
   on_success: change
   # `always` will be the setting below once code changes slow down
   on_failure: change
-
