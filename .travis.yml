@@ -10,12 +10,6 @@ cache: pip
 python:
   - 3.6
 
-matrix:
-  allow_failures:
-    - python: nightly
-    - python: pypy
-    - python: pypy3
-
 stages:
   - test
   - docs
@@ -42,6 +36,10 @@ before_script:
   # https://www.python.org/dev/peps/pep-0008/#a-foolish-consistency-is-the-hobgoblin-of-little-minds
   - flake8 . --count --exit-zero --statistics --select=E,F,W,C90
 jobs:
+  allow_failures:
+    - python: nightly
+    - python: pypy
+    - python: pypy3
   include:
     - stage: test
       name: 'Test Coverage'
