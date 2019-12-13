@@ -17,7 +17,7 @@ stages:
   - test
   - docs
   - name: dockerpush
-    if: branch = 417
+    if: branch = dev #@TODO to map it to production branch
 
 install:
   - sudo apt-get update
